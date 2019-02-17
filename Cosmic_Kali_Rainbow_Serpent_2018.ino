@@ -1,6 +1,7 @@
 #include <SimpleTimer.h>
 
-/*written by Alessandro Cesana for interactive installation at Rainbow Serpent 2018, Cosmic Kali. 
+/*written by Alessandro Cesana for Rainbow Serpent 2018, Cosmic Kali interactive installation.
+A few videos of the installation: https://www.instagram.com/p/BepblSAF94v/
 Inspired by Color Palette and other examples in the FastLed Library*/
 
 #define FASTLED_ALLOW_INTERRUPTS 0
