@@ -1,6 +1,8 @@
 #include <SimpleTimer.h>
 
-/////written by Alessandro Cesana for Cosmic Kali installation at Rainbow Serpent 2018, Cosmic Kali. Inspired by Color Palette and other examples in the FastLed Library
+/*written by Alessandro Cesana for interactive installation at Rainbow Serpent 2018, Cosmic Kali. 
+Inspired by Color Palette and other examples in the FastLed Library*/
+
 #define FASTLED_ALLOW_INTERRUPTS 0
 #include <FastLED.h>
 #include <SerialCommands.h>
@@ -12,7 +14,8 @@
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
 
-#define UPDATES_PER_SECOND 30   ////change updates per second to adjust speed of color change in a smooth way, or make it an adjustable parameter to interact with
+#define UPDATES_PER_SECOND 30   /*change updates per second to adjust speed of color change in a smooth way,
+or make it an adjustable parameter to interact with*/
 
 
 
@@ -47,7 +50,7 @@ bool automode = true;
 char serial_command_buffer_[32];
 SerialCommands serial_commands_(&Serial, serial_command_buffer_, sizeof(serial_command_buffer_), "\r\n", " ");
 
-//default handler, and gets called when no other command matches. 
+//default handler, gets called when no other command matches. 
 void cmd_unrecognized(SerialCommands* sender, const char* cmd)
 {
   sender->GetSerial()->print("Unrecognized command [");
@@ -76,7 +79,7 @@ SerialCommand cmd_AUTOMODE_ON("1", cmd_AUTOMODE_ON_);
 void ChangePalettePeriodically()
 { 
   static uint8_t lastSecond = 0;
-  uint8_t secondHand = (millis() / 1000) % 8;  // loop that rotateds between color palettes (example when millis() = 1000 -> 1000/1000 % 8 = 0 -, millis() = 10000 --> 10000/1000  % 8 = 2-> change of color palette happens at 0 seconds, 10 seconds, 20 seconds, 30, 4
+  uint8_t secondHand = (millis() / 1000) % 8;  // loop that rotates between color palettes (example when millis() = 1000 -> 1000/1000 % 8 = 0 -, millis() = 10000 --> 10000/1000  % 8 = 2-> change of color palette happens at 0 seconds, 10 seconds, 20 seconds, 30, 4
                                               // would be way nicer to use variables rather than hard coded but will do it for the moment
   if( lastSecond != secondHand) {
     lastSecond = secondHand;
@@ -89,7 +92,8 @@ void ChangePalettePeriodically()
   }
 }
 
-void ChangeColorModePeriodically()   ////timer inserted to rotate between a fixed color mode and a rotating color mode (or, more generally, different color modes
+void ChangeColorModePeriodically()   /*timer inserted to rotate between a fixed color mode and a rotating color mode 
+  (or, more generally, different color modes)*/
 { 
   uint8_t secondHand = (millis() / 1000) % 30;
   static uint8_t lastSecond = 99;
@@ -131,7 +135,8 @@ void loop()
 
     
     static uint8_t startIndex = 0;
-    startIndex = startIndex + 1; /* change the point on the strip at which leds start changing color adding to startindex to adjust speed in a quite glitchy way, 1 gives a smooth transition */
+    startIndex = startIndex + 1; /* change the point on the strip at which leds start changing color adding to startindex to adjust 
+    speed in a quite glitchy way, 1 gives a smooth transition */
     
     FillLEDsFromPaletteColors( startIndex);
     
